@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.0'
+        classpath 'com.android.tools.build:gradle:1.2.3'
         classpath 'org.robolectric:robolectric-gradle-plugin:1.0.1'
     }
 }
@@ -36,13 +36,14 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion '21.1.2'
+
+    compileSdkVersion Integer.parseInt(project.ANDROID_COMPILE_SDK_VERSION)
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     buildTypes {
         defaultConfig {
-            minSdkVersion 9
-            targetSdkVersion 21
+            minSdkVersion Integer.parseInt(project.ANDROID_MIN_SDK)
+            targetSdkVersion Integer.parseInt(project.ANDROID_TARGET_SDK_VERSION)
             versionCode 20005
             versionName version
             testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
@@ -75,48 +76,48 @@ signing {
     sign configurations.archives
 }
 
-uploadArchives {
-    configuration = configurations.archives
-    repositories.mavenDeployer {
-        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-        repository(url: sonatypeRepo) {
-            authentication(userName: sonatypeUsername,
-                    password: sonatypePassword)
-        }
-        snapshotRepository(url: sonatypeSnapshotRepo) {
-            authentication(userName: sonatypeUsername,
-                    password: sonatypePassword)
-        }
-
-        pom.project {
-            name 'Smart Location Library'
-            packaging 'aar'
-            description 'This library handles all the boilerplate and repetitive code used when playing with Locations in Android projects.'
-            url 'https://github.com/mrmans0n/smart-location-lib'
-            artifactId 'library'
-
-            scm {
-                url 'scm:git@github.com:mrmans0n/smart-location-lib.git'
-                connection 'scm:git@github.com:mrmans0n/smart-location-lib.git'
-                developerConnection 'scm:git@github.com:mrmans0n/smart-location-lib.git'
-            }
-
-            licenses {
-                license {
-                    name 'MIT license'
-                    url 'http://www.opensource.org/licenses/mit-license.php'
-                    distribution 'repo'
-                }
-            }
-
-            developers {
-                developer {
-                    id 'mrmans0n'
-                    name 'Nacho Lopez'
-                    email 'nacho@nlopez.io'
-                }
-            }
-        }
-    }
-}
+//uploadArchives {
+//    configuration = configurations.archives
+//    repositories.mavenDeployer {
+//        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+//
+//        repository(url: sonatypeRepo) {
+//            authentication(userName: sonatypeUsername,
+//                    password: sonatypePassword)
+//        }
+//        snapshotRepository(url: sonatypeSnapshotRepo) {
+//            authentication(userName: sonatypeUsername,
+//                    password: sonatypePassword)
+//        }
+//
+//        pom.project {
+//            name 'Smart Location Library'
+//            packaging 'aar'
+//            description 'This library handles all the boilerplate and repetitive code used when playing with Locations in Android projects.'
+//            url 'https://github.com/mrmans0n/smart-location-lib'
+//            artifactId 'library'
+//
+//            scm {
+//                url 'scm:git@github.com:mrmans0n/smart-location-lib.git'
+//                connection 'scm:git@github.com:mrmans0n/smart-location-lib.git'
+//                developerConnection 'scm:git@github.com:mrmans0n/smart-location-lib.git'
+//            }
+//
+//            licenses {
+//                license {
+//                    name 'MIT license'
+//                    url 'http://www.opensource.org/licenses/mit-license.php'
+//                    distribution 'repo'
+//                }
+//            }
+//
+//            developers {
+//                developer {
+//                    id 'mrmans0n'
+//                    name 'Nacho Lopez'
+//                    email 'nacho@nlopez.io'
+//                }
+//            }
+//        }
+//    }
+//}
